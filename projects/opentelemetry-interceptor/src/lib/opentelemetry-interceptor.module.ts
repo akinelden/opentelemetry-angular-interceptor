@@ -27,6 +27,12 @@ export class OpenTelemetryInterceptorModule {
     }
   }
 
+  public static forWindowField(fieldName: string): ModuleWithProviders<OpenTelemetryInterceptorModule> {
+    const browserWindow = window || {};
+    const config = browserWindow[fieldName] || {};
+    return this.forRoot(config);
+  }
+
   public static forRoot(config: OpenTelemetryConfig): ModuleWithProviders<OpenTelemetryInterceptorModule> {
     return {
       ngModule: OpenTelemetryInterceptorModule,
